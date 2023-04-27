@@ -89,8 +89,8 @@ const Welcome = () =>{
                 </div>
                 <BsInfoCircle fontSize={17} color="#fff" />
               </div>
-              <div>
-                <p className="text-white font-light text-sm">
+              <div className='w-[100%] flex flex-col' style={{ height: '80px', overflow: 'hidden' }}>
+                <p className="text-white font-light text-sm w-[100%] overflow-hidden" style={{ whiteSpace: 'pre-wrap' }}>
                {currentAccount}
                 </p>
                 <p className="text-white font-semibold text-lg mt-1">

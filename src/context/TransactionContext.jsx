@@ -23,9 +23,6 @@ const getEthereumContract = () => {
     const [transactions, setTransactions] = useState([]);
 
 
-    console.log("current ACcount hun",currentAccount);
-
-
 
     const handleChange = (e, name) => {
       setFormData((prevState) => ({ ...prevState, [name]: e.target.value }));
@@ -90,6 +87,8 @@ try{
           const transactionContract = getEthereumContract();
 
           console.log(transactionContract);
+
+          console.log(transactionContract.getTransactionCount, await transactionContract.getTransactionCount());
       
           const transactionCount = await transactionContract.getTransactionCount();
           console.log("console. 1")
@@ -142,7 +141,11 @@ try{
               }],
             });
 
+      
+
             const transactionHash = await  transactionContract.addToBlockchain(addressTo, parsedAmount, message, keyword);
+
+          
  
             setIsLoading(true);
             console.log(`Loading - ${transactionHash.hash}`);
