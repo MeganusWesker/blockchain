@@ -23,6 +23,7 @@ const getEthereumContract = () => {
     const [transactions, setTransactions] = useState([]);
 
 
+    console.log("current ACcount hun",currentAccount);
 
 
 
@@ -32,11 +33,15 @@ const getEthereumContract = () => {
   
     const getAllTransactions = async () => {
       try {
+     
         if (!ethereum) return alert("Please install metamask");
-          const transactionContract = getEthereumContract();
+          const transactionContract =  getEthereumContract();
+
   
           const availableTransactions = await transactionContract.getAllTransactions();
   
+       
+
           const structuredTransactions = availableTransactions.map((transaction) => ({
             addressTo: transaction.receiver,
             addressFrom: transaction.sender,
@@ -60,14 +65,15 @@ const getEthereumContract = () => {
     const checkIfWalletIsConnected = async () => {
 
 try{
+
       if(!ethereum) return alert("Please install MetaMask.");
 
       const accounts = await ethereum.request({ method: 'eth_accounts' });
-      
 
+      
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
-
+      
         getAllTransactions();
       } else {
         console.log("No accounts found");
@@ -80,26 +86,34 @@ try{
     const checkIfTransactionsExists = async () => {
       try {
         if (ethereum) {
+    
           const transactionContract = getEthereumContract();
+
+          console.log(transactionContract);
+      
           const transactionCount = await transactionContract.getTransactionCount();
-  
+          console.log("console. 1")
           window.localStorage.setItem("transactionCount", transactionCount);
+          console.log("console. 2")
         }
       } catch (error) {
         console.log(error);
   
-        throw new Error("No ethereum object");
+        //throw new Error("No ethereum object");
       }
     };
 
     const connectWallet = async () => {
       try {
+
+
         if (!ethereum) return alert("Please install MetaMask.");
   
         const accounts = await ethereum.request({ method: 'eth_requestAccounts', });
+        console.log("account console kar rha hun bhaia",accounts);
   
         setCurrentAccount(accounts[0]);
-        window.location.reload();
+       
       } catch (error) {
         console.log(error);
   
@@ -157,7 +171,7 @@ try{
     }, []);
 
      return(
-       <TransactionContext.Provider value={{ connectWallet, formData, setFormData, handleChange, sendTransaction, transactions, isLoading }}>
+       <TransactionContext.Provider value={{ connectWallet,currentAccount, formData, setFormData, handleChange, sendTransaction, transactions, isLoading }}>
          {children}
        </TransactionContext.Provider>
      );

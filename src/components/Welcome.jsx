@@ -27,6 +27,8 @@ const commonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-ce
 const Welcome = () =>{
 
   const { connectWallet, currentAccount, formData, sendTransaction, handleChange, isLoading } = useContext(TransactionContext);
+
+  console.log("welcome se ah rha hun bhai" ,currentAccount);
  
 
   const handleSubmit = (e) => {
